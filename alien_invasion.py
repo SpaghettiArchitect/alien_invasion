@@ -4,10 +4,10 @@ import pygame
 
 
 class AlienInvasion:
-    """Overall class to manage game assets and behavior"""
+    """Overall class to manage game assets and behavior."""
 
     def __init__(self):
-        """Initialize the game, and create game resorces"""
+        """Initialize the game, and create game resorces."""
         pygame.init()
         self.clock = pygame.time.Clock()
 
@@ -18,7 +18,7 @@ class AlienInvasion:
         self.bg_color = (230, 230, 230)
 
     def run_game(self):
-        """Start the main loop for the game"""
+        """Start the main loop for the game."""
         while True:
             # Watch for keyboard and mouse events
             for event in pygame.event.get():
