@@ -1,10 +1,14 @@
 import pygame
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from alien_invasion import AlienInvasion
 
 
 class Ship:
     """A class to manage the ship."""
 
-    def __init__(self, ai_game):
+    def __init__(self, ai_game: "AlienInvasion") -> None:
         """Initialize the ship and set its starting position."""
         self.screen = ai_game.screen
         self.settings = ai_game.settings
@@ -24,7 +28,7 @@ class Ship:
         self.moving_right = False
         self.moving_left = False
 
-    def update(self):
+    def update(self) -> None:
         """Update the ship's position based on movement flags."""
         # Update the ship's x value, not the rect
         if self.moving_right:
@@ -35,6 +39,6 @@ class Ship:
         # Update rect object from self.x
         self.rect.x = self.x
 
-    def blitme(self):
+    def blitme(self) -> None:
         """Draw the ship at its current location"""
         self.screen.blit(self.image, self.rect)

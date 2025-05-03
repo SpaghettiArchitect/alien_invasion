@@ -9,7 +9,7 @@ from ship import Ship
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the game, and create game resorces."""
         pygame.init()
         self.clock = pygame.time.Clock()
@@ -26,7 +26,7 @@ class AlienInvasion:
         # Set the background color
         self.bg_color = (230, 230, 230)
 
-    def run_game(self):
+    def run_game(self) -> None:
         """Start the main loop for the game."""
         while True:
             self._check_events()
@@ -36,7 +36,7 @@ class AlienInvasion:
             # Sets the framerate for the game
             self.clock.tick(60)
 
-    def _check_events(self):
+    def _check_events(self) -> None:
         """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -54,7 +54,7 @@ class AlienInvasion:
                 if event.key == pygame.K_LEFT:
                     self.ship.moving_left = False
 
-    def _update_screen(self):
+    def _update_screen(self) -> None:
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
