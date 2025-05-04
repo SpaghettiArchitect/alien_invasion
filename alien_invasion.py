@@ -2,6 +2,7 @@ import sys
 
 import pygame
 
+from bullet import Bullet
 from settings import Settings
 from ship import Ship
 
@@ -23,6 +24,9 @@ class AlienInvasion:
         # Creates the ship that the player can control
         self.ship = Ship(self)
 
+        # Creates a group to store the bullets
+        self.bullets = pygame.sprite.Group()
+
         # Set the background color
         self.bg_color = (230, 230, 230)
 
@@ -31,6 +35,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
 
             # Sets the framerate for the game
@@ -56,6 +61,8 @@ class AlienInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event: pygame.event.Event) -> None:
         """Respond to key releases."""
@@ -64,9 +71,16 @@ class AlienInvasion:
         if event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+    def _fire_bullet(self) -> None:
+        """Create a new bullet and add it to the bullets group."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
     def _update_screen(self) -> None:
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blitme()
 
         pygame.display.flip()
