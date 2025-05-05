@@ -32,9 +32,6 @@ class AlienInvasion:
 
         self._create_fleet()
 
-        # Set the background color
-        self.bg_color = (230, 230, 230)
-
     def run_game(self) -> None:
         """Start the main loop for the game."""
         while True:
