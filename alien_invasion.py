@@ -28,6 +28,7 @@ class AlienInvasion:
         # Creates a group to store the bullets
         self.bullets = pygame.sprite.Group()
 
+        # Creates a group to store the aliens
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
@@ -91,9 +92,18 @@ class AlienInvasion:
 
     def _create_fleet(self) -> None:
         """Create the fleet of aliens."""
-        # Make an alien
+        # Create an alien and keep adding aliens until there's no room left.
+        # Spacing between aliens is one alien width.
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
+
+        current_x = alien_width
+        while current_x < (self.settings.screen_width - 2 * alien_width):
+            new_alien = Alien(self)
+            new_alien.x = current_x
+            new_alien.rect.x = current_x
+            self.aliens.add(new_alien)
+            current_x += 2 * alien_width
 
     def _update_screen(self) -> None:
         """Update images on the screen, and flip to the new screen."""
