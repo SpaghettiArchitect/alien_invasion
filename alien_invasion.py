@@ -1,9 +1,11 @@
 import sys
+from time import sleep
 
 import pygame
 
 from alien import Alien
 from bullet import Bullet
+from game_stats import GameStats
 from settings import Settings
 from ship import Ship
 
@@ -21,6 +23,9 @@ class AlienInvasion:
             (self.settings.screen_width, self.settings.screen_height)
         )
         pygame.display.set_caption("Alien Invasion")
+
+        # Create an instance to store game statistics
+        self.stats = GameStats(self)
 
         # Creates the ship that the player can control
         self.ship = Ship(self)
@@ -103,10 +108,30 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
 
+    def _ship_hit(self) -> None:
+        """Respond to the ship being hit by an alien."""
+        # Decrement ships left
+        self.stats.ships_left -= 1
+
+        # Get rid of any remaining bullets and aliens
+        self.bullets.empty()
+        self.aliens.empty()
+
+        # Create a new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # Pause
+        sleep(0.5)
+
     def _update_aliens(self) -> None:
         """Check if the fleet is at an edge, then update positions."""
         self._check_fleet_edges()
         self.aliens.update()
+
+        # Look for alien-ship collisions
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
 
     def _create_fleet(self) -> None:
         """Create the fleet of aliens."""
