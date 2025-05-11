@@ -1,16 +1,18 @@
 from typing import TYPE_CHECKING
 
 import pygame
+from pygame.sprite import Sprite
 
 if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
 
 
-class Ship:
+class Ship(Sprite):
     """A class to manage the ship."""
 
     def __init__(self, ai_game: "AlienInvasion") -> None:
         """Initialize the ship and set its starting position."""
+        super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
