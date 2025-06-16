@@ -2,7 +2,8 @@ from typing import TYPE_CHECKING
 
 import pygame.font
 from pygame.sprite import Group
-from ship import Ship
+
+from game_sprites.ship import Ship
 
 if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
